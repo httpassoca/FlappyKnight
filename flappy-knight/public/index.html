@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>React App</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+
+    <div class="game" id="game">
+      <div class="container"></div>
+    </div>
+  <script>
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+    const piece = document.createElement("img");
+    const cover = document.createElement("img");
+    piece.setAttribute("src", "./images/block-piece.png");
+    piece.classList.add("piece");
+    cover.setAttribute("src", "./images/block-cover.png");
+    cover.classList.add("cover");
+    const blocks = document.querySelectorAll(".block");
+    const game = document.querySelector('.container');
+
+    const ups = document.querySelectorAll('.up')
+    const downs = document.querySelectorAll('.down')
+    function CreateColumn() {
+      let size = 16;
+      let x = getRandomInt(size);
+      const block = document.createElement("div");
+      const up = document.createElement("div");
+      const down = document.createElement("div");
+      up.classList.add('up');
+      down.classList.add('down');
+
+      for (let j = 0; j < (x + 3); j++) {
+        up.appendChild(piece.cloneNode());
+      }
+      up.appendChild(cover.cloneNode());
+      for (let j = 0; j < (size - x + 3); j++) {
+        down.appendChild(piece.cloneNode());
+      }
+      down.appendChild(cover.cloneNode());
+
+      block.appendChild(up)
+      block.appendChild(down)
+      block.classList.add('block')
+      game.appendChild(block)
+    }
+    CreateColumn();
+    CreateColumn();
+    CreateColumn();
+    CreateColumn();
+    CreateColumn();
+    CreateColumn();
+    
+    let p = 1;
+    setInterval(function(){
+        game.style.transform = 'translateX( -'+ p +'px )';
+        if(p%240 == 0) CreateColumn();
+      p++;
+    },1)
+    // setInterval(function () {
+      // CreateColumn();
+
+    // }, 300)
+  </script>
+</body>
+
+</html>
